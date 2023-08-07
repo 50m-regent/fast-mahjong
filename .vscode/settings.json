@@ -64,6 +64,8 @@
         "compare": "cpp",
         "concepts": "cpp",
         "algorithm": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "deque": "cpp",
+        "queue": "cpp"
     }
 }
