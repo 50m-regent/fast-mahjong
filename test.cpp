@@ -98,7 +98,7 @@ class Hand {
 private:
     inline static const std::set<uint32_t>
         pair_n_sets = {},
-        sets = {}; // キャッシュ後で作成
+        sets = {}; // キャッシュあとで作成
 
     Tiles tiles;
 
