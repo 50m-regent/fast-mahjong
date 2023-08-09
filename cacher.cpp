@@ -1,6 +1,7 @@
+#include <cassert>
 #include <iostream>
-#include <vector>
 #include <set>
+#include <vector>
 #include <math.h>
 
 class Block {
