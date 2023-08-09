@@ -110,7 +110,7 @@ class Tiles {
         assert((1 << 9) > end / start);
 
         uint32_t result = 0, base = 1;
-        for (Tile tile = start; tile <= end; tile = static_cast<Tile>(static_cast<uint64_t>(tile) << 1), base *= 5) {
+        for (Tile tile = start; tile <= end; tile = (Tile)((uint64_t)tile << 1), base *= 5) {
             result += base * this->count(tile);
         }
 
