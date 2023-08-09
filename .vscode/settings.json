@@ -67,5 +67,6 @@
         "numeric": "cpp",
         "deque": "cpp",
         "queue": "cpp"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }
