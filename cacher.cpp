@@ -96,6 +96,7 @@ std::set<uint32_t> sets_cache() {
                         continue;
                     }
 
+                    /*
                     std::cout <<
                         block1 << " " <<
                         block2 << " " <<
@@ -106,6 +107,7 @@ std::set<uint32_t> sets_cache() {
                         block3.get_quinary() +
                         block4.get_quinary() <<
                         std::endl;
+                    */
 
                     sets.insert(
                         block1.get_quinary() +
@@ -149,6 +151,7 @@ std::set<uint32_t> pair_n_sets_cache() {
                             continue;
                         }
 
+                        /*
                         std::cout <<
                             block1 << " " <<
                             block2 << " " <<
@@ -161,6 +164,7 @@ std::set<uint32_t> pair_n_sets_cache() {
                             block4.get_quinary() +
                             pair.get_quinary() <<
                             std::endl;
+                        */
 
                         pair_n_sets.insert(
                             block1.get_quinary() +
@@ -182,6 +186,16 @@ int main() {
     std::set<uint32_t> sets = sets_cache();
     std::cout << sets.size() << std::endl;
 
+    for (const uint32_t& set: sets) {
+        std::cout << set << ", ";
+    }
+    std::cout << std::endl;
+
     std::set<uint32_t> pair_n_sets = pair_n_sets_cache();
     std::cout << pair_n_sets.size() << std::endl;
+
+    for (const uint32_t& pair_n_set: pair_n_sets) {
+        std::cout << pair_n_set << ", ";
+    }
+    std::cout << std::endl;
 }
