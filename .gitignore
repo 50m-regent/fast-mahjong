@@ -1,3 +1,4 @@
 .vscode/
-
 *.mjlog
+*.out
+*.exe
