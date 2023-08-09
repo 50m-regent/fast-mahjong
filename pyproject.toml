@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fast-mahjong"
+version = "0.1.0"
+description = ""
+authors = ["yukihira-pot <r.magoshi.ma54@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fast_mahjong"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+mahjong = "^1.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
