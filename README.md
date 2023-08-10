@@ -25,10 +25,6 @@ Windows では、WSL (Windows Subsystem for Linux) 2 を用いる
         - WSL2 を用い、Linux と同様に行う
     - Linux
         - https://zenn.dev/hr0t15/articles/8ae3564bde2cce 参照
-    - **Pyenv インストール終了後以下を行い、Python 3.11 をインストールする**
-        ```bash
-        pyenv install 3.11
-        ```
 - Poetry
     - Mac 
         - https://zenn.dev/rihito/articles/1b096b1f695f06 参照
@@ -48,8 +44,9 @@ Windows では、WSL (Windows Subsystem for Linux) 2 を用いる
     git clone https://github.com/50m-regent/fast-mahjong.git
     cd fast-majong
     ```
-2. ```fast-mahjong``` ディレクトリ内の Python 環境を Python 3.11 に設定します。
+2. Pyenv で Python 3.11 をインストールし、```fast-mahjong``` ディレクトリ内の Python 環境を Python 3.11 に設定します。
     ```bash
+    pyenv install 3.11
     pyenv local 3.11
     ```
 3. poetry の仮想環境に入ります。
