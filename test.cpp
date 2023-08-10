@@ -8,6 +8,11 @@
 
 namespace mahjong {
 
+/// @brief 牌を表す列挙型
+// M は萬子、P は筒子、S は索子、Z は字牌
+// 萬子 9 枚、筒子 9 枚、索子 9 枚、字牌 7 枚の計 34 枚について、各牌を
+// (その牌の番号だけ bit を立てた 64 bit 型整数) で表す ドラは 1 << 34, 裏ドラは
+// 1 << 35 で表す
 enum Tile : uint64_t {
     M1 = 1ll << 0,
     P1 = 1ll << 9,
@@ -44,8 +49,11 @@ enum Tile : uint64_t {
     P9 = 1ll << 17,
     S9 = 1ll << 26,
 
+    // 萬子すべてを表す数
     M = M1 | M2 | M3 | M4 | M5 | M6 | M7 | M8 | M9,
+    // 筒子すべてを表す数
     P = P1 | P2 | P3 | P4 | P5 | P6 | P7 | P8 | P9,
+    // 索子すべてを表す数
     S = S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9,
 
     Terminals = M1 | M9 | P1 | P9 | S1 | S9,
@@ -59,6 +67,8 @@ inline Tile& operator<<=(Tile& tile, const int& n) noexcept {
     return tile = (Tile)((uint64_t)tile << n);
 }
 
+/// @brief 牌を管理するクラス
+// 牌は 4 枚までしか存在しないので、4 つの 64 bit 型整数で管理する
 class Tiles {
    private:
     uint64_t tiles[4] = {};
@@ -70,11 +80,14 @@ class Tiles {
         return this->tiles[n - 1];
     }
 
+    /// @brief 手持ちの牌の枚数を返す
     inline uint16_t count() const noexcept {
         return std::popcount(this->tiles[0]) + std::popcount(this->tiles[1]) +
                std::popcount(this->tiles[2]) + std::popcount(this->tiles[3]);
     }
 
+    /// @brief 特定の牌の枚数を返す
+    /// @param tile 特定の牌
     inline uint16_t count(const Tile& tile) const noexcept {
         return std::popcount(this->tiles[0] & tile) +
                std::popcount(this->tiles[1] & tile) +
@@ -82,6 +95,8 @@ class Tiles {
                std::popcount(this->tiles[3] & tile);
     }
 
+    /// @brief 特定の牌を追加する
+    /// @param tile 特定の牌
     inline bool add(const Tile& tile) noexcept {
         if (this->tiles[3] & tile) {
             return false;
@@ -94,6 +109,8 @@ class Tiles {
         return true;
     }
 
+    /// @brief 特定の牌を削除する
+    /// @param tile 特定の牌
     inline bool remove(const Tile& tile) noexcept {
         if (!(this->tiles[0] & tile)) {
             return false;
@@ -106,11 +123,15 @@ class Tiles {
         return true;
     }
 
+    /// @brief 特定の種類 (萬子、索子、筒子、字牌) を 5 進数に変換して返す
+    /// @param start 特定の種類の牌のうち最小の牌
+    /// @param end 特定の種類の牌のうち最大の牌
     uint32_t get_quinary(const Tile& start, const Tile& end) const noexcept {
         assert((1 << 9) > end / start);
 
         uint32_t result = 0, base = 1;
-        for (Tile tile = start; tile <= end; tile = (Tile)((uint64_t)tile << 1), base *= 5) {
+        for (Tile tile = start; tile <= end;
+             tile = (Tile)((uint64_t)tile << 1), base *= 5) {
             result += base * this->count(tile);
         }
 
@@ -3235,10 +3256,12 @@ class Hand {
     inline bool can_win_normal() const {
         assert(14 == this->tiles.count());
 
+        // 萬子・筒子・索子それぞれについて 3 枚ずつ取っていったときに何枚残るか
         const uint8_t M_remainder = this->tiles.count(Tile::M) % 3,
                       P_remainder = this->tiles.count(Tile::P) % 3,
                       S_remainder = this->tiles.count(Tile::S) % 3;
 
+        // 字牌のうち、2 枚あるものの種類数の和
         const uint8_t Z_headable_count =
             std::popcount(~this->tiles[3] & this->tiles[2] & Tile::Honors);
 
